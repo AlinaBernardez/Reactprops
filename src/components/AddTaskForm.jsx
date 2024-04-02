@@ -2,11 +2,19 @@ import { useState } from "react";
 
 function AddTaskForm({ addTask }) {
     const [task, setTask] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(!task.trim()) return;
+        addTask(task)
+        setTask('')
+    };
+
     return(
-        <div>
-            <input className='taskInput' placeholder="Add task" onChange={(e) => setTask(e.target.value)}/>
-            <button onClick={() => addTask(task)}>Add</button>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input className='taskInput' placeholder='Add task' value={task} onChange={(e) => setTask(e.target.value)}/>
+            <button type='submit'>Add</button>
+        </form>
     )
 };
 
